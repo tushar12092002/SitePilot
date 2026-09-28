@@ -4,41 +4,38 @@ import com.Tushar.SitePilot.dto.Auth.AuthResponse;
 import com.Tushar.SitePilot.dto.Auth.LoginRequest;
 import com.Tushar.SitePilot.dto.Auth.SignupRequest;
 import com.Tushar.SitePilot.dto.Auth.UserProfileResponse;
-import com.Tushar.SitePilot.services.AuthService;
-import com.Tushar.SitePilot.services.UserService;
+import com.Tushar.SitePilot.services.impl.AuthServiceImpl;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@AllArgsConstructor
 
 @RequestMapping("/api/auth")
+@FieldDefaults(makeFinal = true , level = AccessLevel.PRIVATE)
 public class AuthController {
-    private final AuthService authService ;
-    private final UserService userService ;
+      AuthServiceImpl authService ;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> signup(SignupRequest signupRequest){
+    public ResponseEntity<AuthResponse> signup(@RequestBody SignupRequest signupRequest){
       return ResponseEntity.ok(authService.signup(signupRequest)) ;
 
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(LoginRequest loginRequest){
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest){
         return ResponseEntity.ok(authService.login(loginRequest)) ;
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<UserProfileResponse> getProfile(){
-        Long userID = 1L ;
-        return ResponseEntity.ok(authService.getProfile(userID));
-    }
+//    @GetMapping("/me")
+//    public ResponseEntity<UserProfileResponse> getProfile(){
+//        Long userID = 1L ;
+//        return ResponseEntity.ok(authService.getProfile(userID));
+//    }
 
 }

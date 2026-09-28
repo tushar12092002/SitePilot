@@ -11,5 +11,5 @@ public interface AuthService {
 
      AuthResponse login(LoginRequest loginRequest);
 
-    @Nullable UserProfileResponse getProfile(Long userID);
+     UserProfileResponse getProfile(Long userID);
 }
